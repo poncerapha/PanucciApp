@@ -50,7 +50,10 @@ class MainActivity : ComponentActivity() {
                         bottomAppBarItemSelected = selectedItem,
                         onBottomAppBarItemSelectedChange = {
                             val route = it.route
-                            navController.navigate(route)
+                            navController.navigate(route) {
+                                launchSingleTop = true
+                                popUpTo(route)
+                            }
                         },
                         onFabClick = {
                         }) {
