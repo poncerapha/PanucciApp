@@ -27,7 +27,7 @@ fun DrinksListScreen(
     title: String = "Bebidas",
     products: List<Product> = emptyList(),
     columns: Int = 2,
-    onNavigationToProductDetails: () -> Unit = {}
+    onNavigateToDetails: (Product) -> Unit = {}
 ) {
     Column(
         modifier.fillMaxSize()
@@ -54,7 +54,7 @@ fun DrinksListScreen(
                 DrinkProductCard(
                     product = p,
                     modifier = Modifier.clickable {
-                        onNavigationToProductDetails()
+                        onNavigateToDetails(p)
                     }
                 )
             }

@@ -23,7 +23,7 @@ fun MenuListScreen(
     modifier: Modifier = Modifier,
     title: String = "Menu",
     products: List<Product> = emptyList(),
-    onNavigationToProductDetails: () -> Unit = {}
+    onNavigateToDetails: (Product) -> Unit = {}
 ) {
     Column(
         modifier.fillMaxSize()
@@ -49,7 +49,7 @@ fun MenuListScreen(
                 MenuProductCard(
                     product = p,
                     modifier = Modifier.clickable {
-                        onNavigationToProductDetails()
+                        onNavigateToDetails(p)
                     }
                 )
             }
