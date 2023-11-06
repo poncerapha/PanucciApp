@@ -49,6 +49,16 @@ class MainActivity : ComponentActivity() {
                         } ?: bottomAppBarItems.first()
                         mutableStateOf(item)
                     }
+                    val containsInBottomAppBarItems = currentDestination?.let { destination ->
+                        bottomAppBarItems.find {
+                            it.destination.route == destination.route
+                        }
+                    } != null
+                    val isShowFab = when (currentDestination?.route) {
+                        AppDestinations.Menu.route,
+                        AppDestinations.Drinks.route -> true
+                        else -> false
+                    }
                     PanucciApp(
                         bottomAppBarItemSelected = selectedItem,
                         onBottomAppBarItemSelectedChange = {
@@ -58,6 +68,9 @@ class MainActivity : ComponentActivity() {
                                 popUpTo(route)
                             }
                         },
+                        shouldShowTopBar = containsInBottomAppBarItems,
+                        shouldShowBottomBar = containsInBottomAppBarItems,
+                        shouldShowFab = isShowFab,
                         onFabClick = {
                             navController.navigate(
                                 AppDestinations.Checkout.route
@@ -129,31 +142,40 @@ fun PanucciApp(
     bottomAppBarItemSelected: BottomAppBarItem = bottomAppBarItems.first(),
     onBottomAppBarItemSelectedChange: (BottomAppBarItem) -> Unit = {},
     onFabClick: () -> Unit = {},
+    shouldShowTopBar: Boolean = false,
+    shouldShowBottomBar: Boolean = false,
+    shouldShowFab: Boolean = false,
     content: @Composable () -> Unit
 ) {
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(text = "Ristorante Panucci")
-                },
-            )
+            if (shouldShowTopBar) {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(text = "Ristorante Panucci")
+                    },
+                )
+            }
         },
         bottomBar = {
-            PanucciBottomAppBar(
-                item = bottomAppBarItemSelected,
-                items = bottomAppBarItems,
-                onItemChange = onBottomAppBarItemSelectedChange,
-            )
+            if (shouldShowBottomBar) {
+                PanucciBottomAppBar(
+                    item = bottomAppBarItemSelected,
+                    items = bottomAppBarItems,
+                    onItemChange = onBottomAppBarItemSelectedChange,
+                )
+            }
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = onFabClick
-            ) {
-                Icon(
-                    Icons.Filled.PointOfSale,
-                    contentDescription = null
-                )
+            if (shouldShowFab) {
+                FloatingActionButton(
+                    onClick = onFabClick
+                ) {
+                    Icon(
+                        Icons.Filled.PointOfSale,
+                        contentDescription = null
+                    )
+                }
             }
         }
     ) {
