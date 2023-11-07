@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.update
 class ProductDetailsViewModel(
     private val dao: ProductDao = ProductDao()
 ) : ViewModel() {
-    private val _uIState = MutableStateFlow(ProductDetailsUiState())
-    val uIState get() = _uIState.asStateFlow()
+    private val _uiState = MutableStateFlow(ProductDetailsUiState())
+    val uiState get() = _uiState.asStateFlow()
 
     fun findProductById(id: String) {
         dao.findById(id)?.let { product ->
-            _uIState.update {
+            _uiState.update {
                 it.copy(product = product)
             }
         }

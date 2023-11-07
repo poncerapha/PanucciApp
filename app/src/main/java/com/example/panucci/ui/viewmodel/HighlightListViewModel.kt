@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 class HighlightListViewModel(
     private val dao: ProductDao = ProductDao()
 ) : ViewModel() {
-    private val _uIState = MutableStateFlow(HighlightListUiState())
-    val uiState get() = _uIState.asStateFlow()
+    private val _uiState = MutableStateFlow(HighlightListUiState())
+    val uiState get() = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             dao.products.collect { products ->
-                _uIState.update {
+                _uiState.update {
                     it.copy(products = products)
                 }
             }

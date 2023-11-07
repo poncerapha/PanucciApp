@@ -12,13 +12,13 @@ import kotlinx.coroutines.launch
 class MenuViewModel(
     private val dao: ProductDao = ProductDao()
 ) : ViewModel() {
-    private val _uIState = MutableStateFlow(MenuUiState())
-    val uIState get() = _uIState.asStateFlow()
+    private val _uiState = MutableStateFlow(MenuUiState())
+    val uiState get() = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             dao.products.collect { products ->
-                _uIState.update {
+                _uiState.update {
                     it.copy(products = products)
                 }
             }

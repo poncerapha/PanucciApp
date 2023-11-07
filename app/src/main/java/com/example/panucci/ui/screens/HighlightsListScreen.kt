@@ -17,15 +17,17 @@ import com.example.panucci.sampledata.sampleProducts
 import com.example.panucci.ui.components.HighlightProductCard
 import com.example.panucci.ui.theme.PanucciTheme
 import com.example.panucci.ui.theme.caveatFont
+import com.example.panucci.ui.uistate.HighlightListUiState
 
 @Composable
 fun HighlightsListScreen(
     modifier: Modifier = Modifier,
     title: String = "Destaques do dia",
-    products: List<Product> = emptyList(),
     onNavigateToCheckout: () -> Unit = {},
-    onNavigateToDetails: (Product) -> Unit = {}
+    onNavigateToDetails: (Product) -> Unit = {},
+    uiState: HighlightListUiState = HighlightListUiState()
 ) {
+    val products = uiState.products
     Column(
         modifier
             .fillMaxSize()
@@ -66,8 +68,8 @@ fun HighlightsListScreenPreview() {
     PanucciTheme {
         Surface {
             HighlightsListScreen(
-                products = sampleProducts,
-                title = "Destaques do dia"
+                title = "Destaques do dia",
+                uiState = HighlightListUiState(products = sampleProducts)
             )
         }
     }

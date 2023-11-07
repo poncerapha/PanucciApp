@@ -16,45 +16,48 @@ import com.example.panucci.sampledata.sampleProducts
 import com.example.panucci.ui.theme.PanucciTheme
 import coil.compose.AsyncImage
 import com.example.panucci.R
+import com.example.panucci.ui.uistate.ProductDetailsUiState
 
 @Composable
 fun ProductDetailsScreen(
-    product: Product,
     modifier: Modifier = Modifier,
-    onNavigateToCheckout: () -> Unit = {}
+    onNavigateToCheckout: () -> Unit = {},
+    uiState: ProductDetailsUiState = ProductDetailsUiState()
 ) {
-    Column(
-        modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-    ) {
-        product.image?.let {
-            AsyncImage(
-                model = product.image,
-                contentDescription = null,
-                modifier = Modifier
-                    .height(200.dp)
-                    .fillMaxWidth(),
-                placeholder = painterResource(id = R.drawable.placeholder),
-                contentScale = ContentScale.Crop
-            )
-        }
+    uiState.product?.let { product ->
         Column(
-            Modifier
-                .padding(16.dp)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
-            Text(product.name, fontSize = 24.sp)
-            Text(product.price.toPlainString(), fontSize = 18.sp)
-            Text(product.description)
-            Button(
-                onClick = { onNavigateToCheckout() },
+            product.image?.let {
+                AsyncImage(
+                    model = product.image,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .height(200.dp)
+                        .fillMaxWidth(),
+                    placeholder = painterResource(id = R.drawable.placeholder),
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Column(
                 Modifier
-                    .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                    .padding(16.dp)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(text = "Pedir")
+                Text(product.name, fontSize = 24.sp)
+                Text(product.price.toPlainString(), fontSize = 18.sp)
+                Text(product.description)
+                Button(
+                    onClick = { onNavigateToCheckout() },
+                    Modifier
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
+                    Text(text = "Pedir")
+                }
             }
         }
     }
@@ -66,7 +69,7 @@ fun ProductDetailsScreenPreview() {
     PanucciTheme {
         Surface {
             ProductDetailsScreen(
-                product = sampleProducts.random(),
+                uiState = ProductDetailsUiState(sampleProducts.random()),
             )
         }
     }

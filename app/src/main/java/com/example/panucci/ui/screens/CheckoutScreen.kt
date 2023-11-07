@@ -10,6 +10,7 @@ import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.ArrowForwardIos
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,13 +22,15 @@ import com.example.panucci.model.Product
 import com.example.panucci.sampledata.sampleProducts
 import com.example.panucci.ui.components.CheckoutItemCard
 import com.example.panucci.ui.theme.PanucciTheme
+import com.example.panucci.ui.uistate.CheckoutUiState
 
 @Composable
 fun CheckoutScreen(
     modifier: Modifier = Modifier,
-    products: List<Product> = emptyList(),
-    onPopBackStack: () -> Unit = {}
+    onPopBackStack: () -> Unit = {},
+    uiState: CheckoutUiState = CheckoutUiState()
 ) {
+    val products = uiState.products
     Box(
         modifier.fillMaxSize()
     ) {
@@ -156,7 +159,7 @@ fun CheckoutScreenPreview() {
     PanucciTheme {
         Surface {
             CheckoutScreen(
-                products = sampleProducts
+                uiState = CheckoutUiState(sampleProducts)
             )
         }
     }
@@ -167,7 +170,7 @@ fun CheckoutScreenPreview() {
 fun CheckoutScreenWithoutProductsPreview() {
     PanucciTheme {
         Surface {
-            CheckoutScreen()
+            CheckoutScreen(uiState = CheckoutUiState(sampleProducts))
         }
     }
 }

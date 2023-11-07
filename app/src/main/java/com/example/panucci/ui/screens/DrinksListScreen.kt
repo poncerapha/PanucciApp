@@ -19,16 +19,18 @@ import com.example.panucci.sampledata.sampleProducts
 import com.example.panucci.ui.components.DrinkProductCard
 import com.example.panucci.ui.theme.PanucciTheme
 import com.example.panucci.ui.theme.caveatFont
+import com.example.panucci.ui.uistate.DrinksUiState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DrinksListScreen(
     modifier: Modifier = Modifier,
     title: String = "Bebidas",
-    products: List<Product> = emptyList(),
     columns: Int = 2,
-    onNavigateToDetails: (Product) -> Unit = {}
+    onNavigateToDetails: (Product) -> Unit = {},
+    uiState: DrinksUiState = DrinksUiState()
 ) {
+    val products = uiState.products
     Column(
         modifier
             .fillMaxSize()
@@ -69,8 +71,8 @@ fun DrinksListScreenPreview() {
     PanucciTheme {
         Surface {
             DrinksListScreen(
-                products = sampleProducts,
-                title = "Bebidas"
+                title = "Bebidas",
+                uiState = DrinksUiState(sampleProducts)
             )
         }
     }
