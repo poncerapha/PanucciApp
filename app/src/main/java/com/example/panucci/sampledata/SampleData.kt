@@ -1,12 +1,7 @@
 package com.example.panucci.sampledata
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.RestaurantMenu
-import androidx.compose.material.icons.outlined.LocalBar
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import com.example.panucci.model.Product
-import com.example.panucci.ui.components.BottomAppBarItem
 import java.math.BigDecimal
 import kotlin.random.Random
 
@@ -34,3 +29,4 @@ val sampleProducts = List(10) { index ->
         image = if (index % 2 == 0) "https://picsum.photos/1920/1080" else null
     )
 }
+

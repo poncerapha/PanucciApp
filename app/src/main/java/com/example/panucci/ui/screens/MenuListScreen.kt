@@ -48,9 +48,10 @@ fun MenuListScreen(
             items(products) { p ->
                 MenuProductCard(
                     product = p,
-                    modifier = Modifier.clickable {
-                        onNavigateToDetails(p)
-                    }
+                    Modifier
+                        .clickable {
+                            onNavigateToDetails(p)
+                        }
                 )
             }
         }

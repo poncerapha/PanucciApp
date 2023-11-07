@@ -7,10 +7,10 @@ import androidx.navigation.compose.composable
 import com.example.panucci.sampledata.sampleProducts
 import com.example.panucci.ui.screens.CheckoutScreen
 
-private const val CHECKOUT_ROUTE = "checkout"
+private const val checkoutRoute = "checkout"
 
 fun NavGraphBuilder.checkoutScreen(navController: NavHostController) {
-    composable(AppDestinations.Checkout.route) {
+    composable(checkoutRoute) {
         CheckoutScreen(
             products = sampleProducts,
             onPopBackStack = {
@@ -20,6 +20,6 @@ fun NavGraphBuilder.checkoutScreen(navController: NavHostController) {
     }
 }
 
-fun NavController.navigateToCheckout() {
-    navigate(CHECKOUT_ROUTE)
+fun NavController.navigateToCheckout(){
+    navigate(checkoutRoute)
 }

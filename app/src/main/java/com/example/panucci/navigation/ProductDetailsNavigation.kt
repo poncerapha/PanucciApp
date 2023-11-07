@@ -8,14 +8,14 @@ import androidx.navigation.compose.composable
 import com.example.panucci.sampledata.sampleProducts
 import com.example.panucci.ui.screens.ProductDetailsScreen
 
-private const val PRODUCT_DETAILS_ROUTE = "productDetails"
-private const val PRODUCT_ID_ARGUMENT = "productId"
+private const val productDetailsRoute = "productDetails"
+private const val productIdArgument = "productId"
 
 fun NavGraphBuilder.productDetailsScreen(navController: NavHostController) {
     composable(
-        "$PRODUCT_DETAILS_ROUTE/{$PRODUCT_ID_ARGUMENT}"
+        "$productDetailsRoute/{$productIdArgument}"
     ) { backStackEntry ->
-        val id = backStackEntry.arguments?.getString(PRODUCT_ID_ARGUMENT)
+        val id = backStackEntry.arguments?.getString(productIdArgument)
         sampleProducts.find {
             it.id == id
         }?.let { product ->
@@ -32,5 +32,5 @@ fun NavGraphBuilder.productDetailsScreen(navController: NavHostController) {
 }
 
 fun NavController.navigateToProductDetails(id: String){
-    navigate("$PRODUCT_DETAILS_ROUTE/$id")
+    navigate("$productDetailsRoute/$id")
 }

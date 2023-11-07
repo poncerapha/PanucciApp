@@ -1,4 +1,4 @@
-package br.com.alura.panucci.ui.components
+package com.example.panucci.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

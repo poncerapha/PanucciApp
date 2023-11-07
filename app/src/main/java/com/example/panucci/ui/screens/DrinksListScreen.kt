@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.panucci.model.Product
 import com.example.panucci.sampledata.sampleProducts
-import br.com.alura.panucci.ui.components.DrinkProductCard
+import com.example.panucci.ui.components.DrinkProductCard
 import com.example.panucci.ui.theme.PanucciTheme
 import com.example.panucci.ui.theme.caveatFont
 
@@ -30,7 +30,8 @@ fun DrinksListScreen(
     onNavigateToDetails: (Product) -> Unit = {}
 ) {
     Column(
-        modifier.fillMaxSize()
+        modifier
+            .fillMaxSize()
     ) {
         Surface {
             Text(
@@ -53,7 +54,7 @@ fun DrinksListScreen(
             items(products) { p ->
                 DrinkProductCard(
                     product = p,
-                    modifier = Modifier.clickable {
+                    Modifier.clickable {
                         onNavigateToDetails(p)
                     }
                 )
@@ -68,7 +69,8 @@ fun DrinksListScreenPreview() {
     PanucciTheme {
         Surface {
             DrinksListScreen(
-                products = sampleProducts, title = "Bebidas"
+                products = sampleProducts,
+                title = "Bebidas"
             )
         }
     }

@@ -128,9 +128,7 @@ fun CheckoutScreen(
             }
         }
         Button(
-            onClick = {
-                onPopBackStack()
-            },
+            onClick = { onPopBackStack() },
             Modifier
                 .padding(
                     16.dp

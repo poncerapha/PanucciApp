@@ -21,7 +21,7 @@ import com.example.panucci.R
 fun ProductDetailsScreen(
     product: Product,
     modifier: Modifier = Modifier,
-    onNavigateToCheckout: (Product) -> Unit = {}
+    onNavigateToCheckout: () -> Unit = {}
 ) {
     Column(
         modifier
@@ -49,9 +49,7 @@ fun ProductDetailsScreen(
             Text(product.price.toPlainString(), fontSize = 18.sp)
             Text(product.description)
             Button(
-                onClick = {
-                    onNavigateToCheckout(product)
-                },
+                onClick = { onNavigateToCheckout() },
                 Modifier
                     .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
