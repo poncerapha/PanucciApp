@@ -1,23 +1,31 @@
 package com.example.panucci.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.panucci.dao.ProductDao
 import com.example.panucci.ui.uistate.ProductDetailsUiState
+import kotlin.random.Random
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class ProductDetailsViewModel(
     private val dao: ProductDao = ProductDao()
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(ProductDetailsUiState())
+    private val _uiState = MutableStateFlow<ProductDetailsUiState>(ProductDetailsUiState.Loading)
     val uiState get() = _uiState.asStateFlow()
 
     fun findProductById(id: String) {
-        dao.findById(id)?.let { product ->
-            _uiState.update {
-                it.copy(product = product)
-            }
+        _uiState.update { ProductDetailsUiState.Loading }
+        viewModelScope.launch {
+            val timeInMilli = Random.nextLong(500, 1500)
+            delay(timeInMilli)
+            val dataState = dao.findById(id)?.let { product ->
+                ProductDetailsUiState.Success(product)
+            } ?: ProductDetailsUiState.Failure
+            _uiState.update { dataState }
         }
     }
 }

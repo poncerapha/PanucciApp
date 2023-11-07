@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.panucci.sampledata.sampleProducts
 import com.example.panucci.ui.screens.ProductDetailsScreen
 import com.example.panucci.ui.viewmodel.ProductDetailsViewModel
 
@@ -30,6 +29,12 @@ fun NavGraphBuilder.productDetailsScreen(navController: NavHostController) {
                 onNavigateToCheckout = {
                     navController.navigateToCheckout()
                 },
+                onTryFindProductAgain = {
+                    viewModel.findProductById(id)
+                },
+                onBackStack = {
+                    navController.navigateUp()
+                }
             )
         } ?: LaunchedEffect(Unit) {
             navController.navigateUp()
