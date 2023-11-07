@@ -20,7 +20,7 @@ fun NavGraphBuilder.drinksScreen(navController: NavHostController) {
         DrinksListScreen(
             uiState = uiState,
             onNavigateToDetails = { product ->
-                navController.navigateToProductDetails(product.id)
+                navController.navigateToProductDetails(product.price.toPlainString())
             },
         )
     }
