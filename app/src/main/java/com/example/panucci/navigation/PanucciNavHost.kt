@@ -17,7 +17,7 @@ import com.example.panucci.ui.screens.ProductDetailsScreen
 fun PanucciNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = AppDestinations.Highlights.route
+        startDestination = HIGHLIGHTS_LIST_ROUTE
     ) {
         highlightsListScreen(navController)
         menuScreen(navController)

@@ -21,7 +21,7 @@ import com.example.panucci.R
 fun ProductDetailsScreen(
     product: Product,
     modifier: Modifier = Modifier,
-    onNavigationToCheckout: (Product) -> Unit = {}
+    onNavigateToCheckout: (Product) -> Unit = {}
 ) {
     Column(
         modifier
@@ -50,7 +50,7 @@ fun ProductDetailsScreen(
             Text(product.description)
             Button(
                 onClick = {
-                    onNavigationToCheckout(product)
+                    onNavigateToCheckout(product)
                 },
                 Modifier
                     .fillMaxWidth(),
