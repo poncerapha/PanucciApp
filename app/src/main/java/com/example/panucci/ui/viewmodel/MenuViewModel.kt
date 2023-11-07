@@ -12,8 +12,9 @@ import kotlinx.coroutines.launch
 class MenuViewModel(
     private val dao: ProductDao = ProductDao()
 ) : ViewModel() {
+
     private val _uiState = MutableStateFlow(MenuUiState())
-    val uiState get() = _uiState.asStateFlow()
+    val uiState = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -24,4 +25,5 @@ class MenuViewModel(
             }
         }
     }
+
 }

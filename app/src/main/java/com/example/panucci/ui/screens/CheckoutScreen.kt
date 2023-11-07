@@ -27,7 +27,7 @@ import com.example.panucci.ui.uistate.CheckoutUiState
 @Composable
 fun CheckoutScreen(
     modifier: Modifier = Modifier,
-    onPopBackStack: () -> Unit = {},
+    onOrderClick: () -> Unit = {},
     uiState: CheckoutUiState = CheckoutUiState()
 ) {
     val products = uiState.products
@@ -131,7 +131,7 @@ fun CheckoutScreen(
             }
         }
         Button(
-            onClick = { onPopBackStack() },
+            onClick = { onOrderClick() },
             Modifier
                 .padding(
                     16.dp
@@ -159,7 +159,9 @@ fun CheckoutScreenPreview() {
     PanucciTheme {
         Surface {
             CheckoutScreen(
-                uiState = CheckoutUiState(sampleProducts)
+                uiState = CheckoutUiState(
+                    products = sampleProducts
+                )
             )
         }
     }
@@ -170,7 +172,9 @@ fun CheckoutScreenPreview() {
 fun CheckoutScreenWithoutProductsPreview() {
     PanucciTheme {
         Surface {
-            CheckoutScreen(uiState = CheckoutUiState(sampleProducts))
+            CheckoutScreen(
+                uiState = CheckoutUiState()
+            )
         }
     }
 }

@@ -23,49 +23,33 @@ import com.example.panucci.ui.uistate.ProductDetailsUiState
 fun ProductDetailsScreen(
     uiState: ProductDetailsUiState,
     modifier: Modifier = Modifier,
-    onNavigateToCheckout: () -> Unit = {},
-    onTryFindProductAgain: () -> Unit = {},
-    onBackStack: () -> Unit = {}
+    onOrderClick: () -> Unit = {},
+    onTryFindProductAgainClick: () -> Unit = {},
+    onBackClick: () -> Unit = {}
 ) {
     when (uiState) {
         ProductDetailsUiState.Failure -> {
             Column(
-                modifier = Modifier
-                    .fillMaxSize(),
+                Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = "Falha ao buscar o produto")
                 Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = {
-                        onTryFindProductAgain()
-                    },
-                ) {
+                Button(onClick = onTryFindProductAgainClick) {
                     Text(text = "Tentar buscar novamente")
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                TextButton(onClick = {
-                    onBackStack()
-                }
-                ) {
+                TextButton(onClick = onBackClick) {
                     Text(text = "Voltar")
                 }
             }
         }
-
         ProductDetailsUiState.Loading -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                )
+            Box(Modifier.fillMaxSize()) {
+                CircularProgressIndicator(Modifier.align(Alignment.Center))
             }
         }
-
         is ProductDetailsUiState.Success -> {
             val product = uiState.product
             Column(
@@ -94,7 +78,7 @@ fun ProductDetailsScreen(
                     Text(product.price.toPlainString(), fontSize = 18.sp)
                     Text(product.description)
                     Button(
-                        onClick = { onNavigateToCheckout() },
+                        onClick = { onOrderClick() },
                         Modifier
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
@@ -103,17 +87,20 @@ fun ProductDetailsScreen(
                     }
                 }
             }
+
         }
     }
 }
 
 @Preview
 @Composable
-fun ProductDetailsScreenPreview() {
+fun ProductDetailsScreenWithSuccessStatePreview() {
     PanucciTheme {
         Surface {
             ProductDetailsScreen(
-                uiState = ProductDetailsUiState.Success(sampleProducts.random()),
+                uiState = ProductDetailsUiState.Success(
+                    sampleProducts.random()
+                ),
             )
         }
     }
@@ -121,11 +108,23 @@ fun ProductDetailsScreenPreview() {
 
 @Preview
 @Composable
-fun ProductDetailsScreenFailurePreview() {
+fun ProductDetailsScreenWithFailureStatePreview() {
     PanucciTheme {
         Surface {
             ProductDetailsScreen(
                 uiState = ProductDetailsUiState.Failure,
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ProductDetailsScreenWithLoadingStatePreview() {
+    PanucciTheme {
+        Surface {
+            ProductDetailsScreen(
+                uiState = ProductDetailsUiState.Loading,
             )
         }
     }

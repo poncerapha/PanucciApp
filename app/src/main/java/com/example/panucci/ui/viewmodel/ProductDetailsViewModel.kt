@@ -14,16 +14,19 @@ import kotlinx.coroutines.launch
 class ProductDetailsViewModel(
     private val dao: ProductDao = ProductDao()
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow<ProductDetailsUiState>(ProductDetailsUiState.Loading)
-    val uiState get() = _uiState.asStateFlow()
+
+    private val _uiState = MutableStateFlow<ProductDetailsUiState>(
+        ProductDetailsUiState.Loading
+    )
+    val uiState = _uiState.asStateFlow()
 
     fun findProductById(id: String) {
         _uiState.update { ProductDetailsUiState.Loading }
         viewModelScope.launch {
-            val timeInMilli = Random.nextLong(500, 1500)
-            delay(timeInMilli)
+            val timemillis = Random.nextLong(500, 2000)
+            delay(timemillis)
             val dataState = dao.findById(id)?.let { product ->
-                ProductDetailsUiState.Success(product)
+                ProductDetailsUiState.Success(product = product)
             } ?: ProductDetailsUiState.Failure
             _uiState.update { dataState }
         }

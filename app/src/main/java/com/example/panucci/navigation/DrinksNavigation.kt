@@ -8,26 +8,27 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.example.panucci.model.Product
 import com.example.panucci.ui.screens.DrinksListScreen
 import com.example.panucci.ui.viewmodel.DrinksViewModel
 
 internal const val drinksRoute = "drinks"
 
-fun NavGraphBuilder.drinksScreen(navController: NavHostController) {
+fun NavGraphBuilder.drinksScreen(
+    onNavigateToProductDetails: (Product) -> Unit
+) {
     composable(drinksRoute) {
         val viewModel = viewModel<DrinksViewModel>()
         val uiState by viewModel.uiState.collectAsState()
         DrinksListScreen(
             uiState = uiState,
-            onNavigateToDetails = { product ->
-                navController.navigateToProductDetails(product.price.toPlainString())
-            },
+            onProductClick = onNavigateToProductDetails,
         )
     }
 }
 
 fun NavController.navigateToDrinks(
     navOptions: NavOptions? = null
-){
+) {
     navigate(drinksRoute, navOptions)
 }

@@ -23,8 +23,8 @@ import com.example.panucci.ui.uistate.HighlightListUiState
 fun HighlightsListScreen(
     modifier: Modifier = Modifier,
     title: String = "Destaques do dia",
-    onNavigateToCheckout: () -> Unit = {},
-    onNavigateToDetails: (Product) -> Unit = {},
+    onOrderClick: () -> Unit = {},
+    onProductClick: (Product) -> Unit = {},
     uiState: HighlightListUiState = HighlightListUiState()
 ) {
     val products = uiState.products
@@ -53,9 +53,9 @@ fun HighlightsListScreen(
                 HighlightProductCard(
                     product = p,
                     Modifier.clickable {
-                        onNavigateToDetails(p)
+                        onProductClick(p)
                     },
-                    onOrderClick = onNavigateToCheckout
+                    onOrderClick = onOrderClick
                 )
             }
         }
@@ -69,7 +69,9 @@ fun HighlightsListScreenPreview() {
         Surface {
             HighlightsListScreen(
                 title = "Destaques do dia",
-                uiState = HighlightListUiState(products = sampleProducts)
+                uiState = HighlightListUiState(
+                    products = sampleProducts
+                )
             )
         }
     }

@@ -23,7 +23,7 @@ import com.example.panucci.ui.uistate.MenuUiState
 fun MenuListScreen(
     modifier: Modifier = Modifier,
     title: String = "Menu",
-    onNavigateToDetails: (Product) -> Unit = {},
+    onProductClick: (Product) -> Unit = {},
     uiState: MenuUiState = MenuUiState()
 ) {
     val products = uiState.products
@@ -52,7 +52,7 @@ fun MenuListScreen(
                     product = p,
                     Modifier
                         .clickable {
-                            onNavigateToDetails(p)
+                            onProductClick(p)
                         }
                 )
             }
@@ -66,7 +66,9 @@ fun MenuListScreenPreview() {
     PanucciTheme {
         Surface {
             MenuListScreen(
-                uiState = MenuUiState(sampleProducts)
+                uiState = MenuUiState(
+                    products = sampleProducts
+                )
             )
         }
     }
