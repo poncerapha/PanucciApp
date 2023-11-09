@@ -14,14 +14,13 @@ import com.example.panucci.ui.screens.DrinksListScreen
 import com.example.panucci.ui.viewmodel.DrinksViewModel
 
 internal const val drinksRoute = "drinks"
-private const val uri = "alura://panucci.com.br/drinks"
 
 fun NavGraphBuilder.drinksScreen(
     onNavigateToProductDetails: (Product) -> Unit
 ) {
     composable(
         route = drinksRoute,
-        deepLinks = listOf(navDeepLink { uriPattern = uri })
+        deepLinks = listOf(navDeepLink { uriPattern = "$uri/$drinksRoute" })
     ) {
         val viewModel = viewModel<DrinksViewModel>()
         val uiState by viewModel.uiState.collectAsState()

@@ -8,19 +8,26 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import com.example.panucci.ui.screens.ProductDetailsScreen
 import com.example.panucci.ui.viewmodel.ProductDetailsViewModel
 
-
 private const val productDetailsRoute = "productDetails"
-private const val productIdArgument = "productId"
+internal const val productIdArgument = "productId"
+internal const val promoCodeArgument = "promoCode"
 
 fun NavGraphBuilder.productDetailsScreen(
     onNavigateToCheckout: () -> Unit,
     onPopBackStack: () -> Unit
 ) {
     composable(
-        "$productDetailsRoute/{$productIdArgument}"
+        "$productDetailsRoute/{$productIdArgument}",
+        deepLinks = listOf(
+            navDeepLink {
+                uriPattern =
+                    "$uri/$productDetailsRoute/{$productIdArgument}?$promoCodeArgument={$promoCodeArgument}"
+            },
+        )
     ) { backStackEntry ->
         backStackEntry.arguments?.getString(productIdArgument)?.let { id ->
             val viewModel = viewModel<ProductDetailsViewModel>(
