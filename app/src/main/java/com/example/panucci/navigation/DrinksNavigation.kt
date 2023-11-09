@@ -8,16 +8,21 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import com.example.panucci.model.Product
 import com.example.panucci.ui.screens.DrinksListScreen
 import com.example.panucci.ui.viewmodel.DrinksViewModel
 
 internal const val drinksRoute = "drinks"
+private const val uri = "alura://panucci.com.br/drinks"
 
 fun NavGraphBuilder.drinksScreen(
     onNavigateToProductDetails: (Product) -> Unit
 ) {
-    composable(drinksRoute) {
+    composable(
+        route = drinksRoute,
+        deepLinks = listOf(navDeepLink { uriPattern = uri })
+    ) {
         val viewModel = viewModel<DrinksViewModel>()
         val uiState by viewModel.uiState.collectAsState()
         DrinksListScreen(
