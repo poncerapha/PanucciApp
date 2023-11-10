@@ -12,7 +12,7 @@ import androidx.navigation.navDeepLink
 import com.example.panucci.ui.screens.ProductDetailsScreen
 import com.example.panucci.ui.viewmodel.ProductDetailsViewModel
 
-private const val productDetailsRoute = "productDetails"
+internal const val productDetailsRoute = "productDetails"
 internal const val productIdArgument = "productId"
 internal const val promoCodeArgument = "promoCode"
 
